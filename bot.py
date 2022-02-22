@@ -42,7 +42,7 @@ def what_is_menu():
           
             source = response.text # menu_info class 내용 가져오기
             soup = BeautifulSoup(source,'html.parser')
-            a = soup.select('#tab_item_1 td').text
+            a = soup.select('#tab_item_1 td').find_all(text=True)
             print(a)
             for menu in a:
                 menu_text = menu.get_text().split()
