@@ -98,8 +98,8 @@ def what_is_menu(): # made by 1316, 1301
 @application.route('/menu', methods=['POST'])
 def response_menu(): # 메뉴 대답 함수
     
-    #msg1, msg2, msg3, menu1, menu2, menu3, boborder = what_is_menu()
-    #if menu1=="등록된 급식이 없습니다." and menu2=="등록된 급식이 없습니다." and menu3=="등록된 급식이 없습니다.":
+    """msg1, msg2, msg3, menu1, menu2, menu3, boborder = what_is_menu()
+    if menu1=="등록된 급식이 없습니다." and menu2=="등록된 급식이 없습니다." and menu3=="등록된 급식이 없습니다.":
         res={
             "version": "2.0",
             "template": {
@@ -112,7 +112,7 @@ def response_menu(): # 메뉴 대답 함수
                 ]
             }
         }
-    """else:
+    else:
         res={ # 답변
             "version": "2.0",
             "template": {
@@ -135,6 +135,18 @@ def response_menu(): # 메뉴 대답 함수
                 ]
             }
         }"""
+    res={
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                {
+                    "simpleText": {
+                        "text": "ㅎㅇ"
+                    }
+                }
+            ]
+        }
+    }
     return jsonify(res)
 
 if __name__ == "__main__":
