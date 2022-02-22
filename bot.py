@@ -47,7 +47,7 @@ def what_is_menu():
                 soup = BeautifulSoup(source,'html.parser')
                 a = soup.find("div",{"class":"item"}).find_all(text=True)
                 print(a)
-                for menu in a:
+                '''for menu in a:
                     menu_text = menu.get_text().split()
                     menu_day = menu_text[0]
                     menu_when = menu_text[1]
@@ -61,7 +61,7 @@ def what_is_menu():
                     elif menu_when == "저녁": save_i = 2
 
                     if today_name in menu_day : Menu[0][save_i]=menu_content
-                    elif tomorrow_name in menu_day: Menu[1][save_i]=menu_content
+                    elif tomorrow_name in menu_day: Menu[1][save_i]=menu_content'''
     
     req=request.get_json() # 파라미터 값 불러오기
     askmenu=req["action"]["detailParams"]["ask_menu"]["value"]
