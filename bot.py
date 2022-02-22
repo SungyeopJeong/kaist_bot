@@ -21,25 +21,29 @@ Msg = [["[오늘 아침]","[오늘 점심]","[오늘 저녁]"],["[내일 아침]
 Menu = [["","",""],["","",""],["","",""],["","",""],["","",""],["","",""],["","",""]] # 카이마루 급식
 Menu_saved_date = "" # 급식 불러온 날짜
 
+def make_2digit(n):
+    return str(n) if n>9 else '0'+str(n)
+
 def what_is_menu():
     
     global Menu, Menu_saved_date
     now = datetime.datetime.utcnow() # 오늘, 내일 날짜
     today = utc.localize(now).astimezone(KST)
-    today_name = str(today.year)+"-"+str(today.month)+"-"+str(today.day) # 추후 비교용 날짜명 텍스트("M.D.W")
-    print(today_name)
-
-    '''if Menu_saved_date == "" or Menu_saved_date != today_name :
-        Menu_saved_date = today_name
-        Menu = [["","",""],["","",""]]
-        url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt=2022-02-22'
+    monday = today - datetime.timedelta(days=today.weekday())
+    monday_name = str(monday.year)+"-"+make_2digit(monday.month)+"-"+make_2digit(monday.day) # 추후 비교용 날짜명 텍스트("Y-M-D")
+    print(monday_name)
+    
+    if Menu_saved_date == "" or Menu_saved_date != monday_name :
+        Menu_saved_date = monday_name
+        Menu = [["","",""],["","",""],["","",""],["","",""],["","",""],["","",""],["","",""]]
+        url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt='+monday_name
         response = requests.get(url) # url로부터 가져오기
         if response.status_code == 200:  
           
             source = response.text # menu_info class 내용 가져오기
             soup = BeautifulSoup(source,'html.parser')
-            a = soup.select('.timeline_box')
-            
+            a = soup.select('#tab_item_1')
+            print(a)
             for menu in a:
                 menu_text = menu.get_text().split()
                 menu_day = menu_text[0]
