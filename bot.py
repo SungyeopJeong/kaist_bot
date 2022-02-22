@@ -31,34 +31,37 @@ def what_is_menu():
     today = utc.localize(now).astimezone(KST)
     monday = today - datetime.timedelta(days=today.weekday())
     monday_name = str(monday.year)+"-"+make_2digit(monday.month)+"-"+make_2digit(monday.day) # 추후 비교용 날짜명 텍스트("Y-M-D")
-    print(monday_name)
     
     if Menu_saved_date == "" or Menu_saved_date != monday_name :
         Menu_saved_date = monday_name
         Menu = [["","",""],["","",""],["","",""],["","",""],["","",""],["","",""],["","",""]]
-        url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt='+monday_name
-        response = requests.get(url) # url로부터 가져오기
-        if response.status_code == 200:  
-          
-            source = response.text # menu_info class 내용 가져오기
-            soup = BeautifulSoup(source,'html.parser')
-            a = soup.find("div",{"class":"item"}).find_all(text=True)
-            print(a)
-            for menu in a:
-                menu_text = menu.get_text().split()
-                menu_day = menu_text[0]
-                menu_when = menu_text[1]
-                menu_list = menu_text[2:] if menu_text[2]!='TODAY' else menu_text[3:]
-                menu_content = menu_list[0]
-                for menu_c in menu_list[1:]:
-                    menu_content += "\n" + menu_c
-              
-                if menu_when == "아침": save_i = 0
-                elif menu_when == "점심": save_i = 1
-                elif menu_when == "저녁": save_i = 2
-              
-                if today_name in menu_day : Menu[0][save_i]=menu_content
-                elif tomorrow_name in menu_day: Menu[1][save_i]=menu_content
+        for i in range(7):
+            urlday = monday + datetime.timedelta(days=i)
+            urlday_name = str(urlday.year)+"-"+make_2digit(urlday.month)+"-"+make_2digit(urlday.day)
+            url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt='+urlday_name
+            
+            response = requests.get(url) # url로부터 가져오기
+            if response.status_code == 200:  
+                
+                source = response.text # 내용 가져오기
+                soup = BeautifulSoup(source,'html.parser')
+                a = soup.find("div",{"class":"item"}).find_all(text=True)
+                print(a)
+                for menu in a:
+                    menu_text = menu.get_text().split()
+                    menu_day = menu_text[0]
+                    menu_when = menu_text[1]
+                    menu_list = menu_text[2:] if menu_text[2]!='TODAY' else menu_text[3:]
+                    menu_content = menu_list[0]
+                    for menu_c in menu_list[1:]:
+                        menu_content += "\n" + menu_c
+
+                    if menu_when == "아침": save_i = 0
+                    elif menu_when == "점심": save_i = 1
+                    elif menu_when == "저녁": save_i = 2
+
+                    if today_name in menu_day : Menu[0][save_i]=menu_content
+                    elif tomorrow_name in menu_day: Menu[1][save_i]=menu_content
     
     req=request.get_json() # 파라미터 값 불러오기
     askmenu=req["action"]["detailParams"]["ask_menu"]["value"]
