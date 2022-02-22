@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify, render_template, send_file
-'''from werkzeug.utils import secure_filename
-import os
+#from werkzeug.utils import secure_filename
+#import os
 import datetime
 from datetime import timedelta
 from pytz import timezone, utc
-import openpyxl
+#import openpyxl
 import requests
 from bs4 import BeautifulSoup
-'''
+
 application=Flask(__name__)
 
 # 참고 사항
@@ -18,10 +18,10 @@ Days = ["일요일","월요일","화요일","수요일","목요일","금요일",
 mealname = ["아침","점심","저녁"] # 식사 이름
 mday = [31,28,31,30,31,30,31,31,30,31,30,31] # 매월 일 수
 Msg = [["[오늘 아침]","[오늘 점심]","[오늘 저녁]"],["[내일 아침]","[내일 점심]","[내일 저녁]"]] # 급식 title
-Menu = [["","",""],["","",""]] # 오늘, 내일 급식
+Menu = [["","",""],["","",""],["","",""],["","",""],["","",""],["","",""],["","",""]] # 카이마루 급식
 Menu_saved_date = "" # 급식 불러온 날짜
-"""
-def what_is_menu(): # made by 1316, 1301
+
+def what_is_menu():
     
     global Menu, Menu_saved_date
     now = datetime.datetime.utcnow() # 오늘, 내일 날짜
@@ -33,7 +33,7 @@ def what_is_menu(): # made by 1316, 1301
     if Menu_saved_date == "" or Menu_saved_date != today_name :
         Menu_saved_date = today_name
         Menu = [["","",""],["","",""]]
-        url = 'https://search.naver.com/search.naver?ie=UTF-8&query=%EB%8C%80%EA%B5%AC%EC%9D%BC%EA%B3%BC%ED%95%99%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90&sm=chr_hty'
+        url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt=2022-02-22'
         response = requests.get(url) # url로부터 가져오기
         if response.status_code == 200:  
           
