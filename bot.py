@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template, send_file
-from werkzeug.utils import secure_filename
+'''from werkzeug.utils import secure_filename
 import os
 import datetime
 from datetime import timedelta
@@ -7,7 +7,7 @@ from pytz import timezone, utc
 import openpyxl
 import requests
 from bs4 import BeautifulSoup
-
+'''
 application=Flask(__name__)
 
 # 참고 사항
