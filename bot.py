@@ -45,7 +45,7 @@ def what_is_menu():
                 
                 source = response.text # 내용 가져오기
                 soup = BeautifulSoup(source,'html.parser')
-                a = soup.find("div",{"class":"item"}).find_all(text=True)
+                a = soup.find_all("ul",{"class":"list-1st"}).find_all(text=True)
                 print(a)
                 print(len(a))
                 '''for menu in a:
