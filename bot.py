@@ -38,7 +38,7 @@ def what_is_menu():
         for i in range(7):
             urlday = monday + datetime.timedelta(days=i)
             urlday_name = str(urlday.year)+"-"+make_2digit(urlday.month)+"-"+make_2digit(urlday.day)
-            url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt='+urlday_name
+            url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=west&stt_dt='+urlday_name
             
             response = requests.get(url) # url로부터 가져오기
             if response.status_code == 200:  
