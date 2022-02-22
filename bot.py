@@ -97,7 +97,7 @@ def what_is_menu():
     if Menu[i][si] == "": second = "등록된 급식이 없습니다."
     if Menu[i][ti] == "": third = "등록된 급식이 없습니다."
     return Msg[i][fi], Msg[i][si], Msg[i][ti], first, second, third, boborder
-'''
+
 @application.route('/menu', methods=['POST'])
 def response_menu(): # 메뉴 대답 함수
     
