@@ -13,7 +13,7 @@ application=Flask(__name__)
 # 참고 사항
 # 변수명 앞에 d가 붙은 것은 저장된 데이터에서 불러온 값, d가 붙지 않은 것은 현재 or 입력한 데이터 값
 
-#KST=timezone('Asia/Seoul')
+KST=timezone('Asia/Seoul')
 Days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"] # 요일 이름
 mealname = ["아침","점심","저녁"] # 식사 이름
 mday = [31,28,31,30,31,30,31,31,30,31,30,31] # 매월 일 수
@@ -26,11 +26,10 @@ def what_is_menu():
     global Menu, Menu_saved_date
     now = datetime.datetime.utcnow() # 오늘, 내일 날짜
     today = utc.localize(now).astimezone(KST)
-    tomorrow = today + timedelta(days=1)
-    today_name = str(today.month)+"."+str(today.day)+"." # 추후 비교용 날짜명 텍스트("M.D.W")
-    tomorrow_name = str(tomorrow.month)+"."+str(tomorrow.day)+"."
+    today_name = str(today.year)+"-"+str(today.month)+"-"+str(today.day) # 추후 비교용 날짜명 텍스트("M.D.W")
+    print(today_name)
 
-    if Menu_saved_date == "" or Menu_saved_date != today_name :
+    '''if Menu_saved_date == "" or Menu_saved_date != today_name :
         Menu_saved_date = today_name
         Menu = [["","",""],["","",""]]
         url = 'https://kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt&stt_dt=2022-02-22'
@@ -94,12 +93,12 @@ def what_is_menu():
     if Menu[i][si] == "": second = "등록된 급식이 없습니다."
     if Menu[i][ti] == "": third = "등록된 급식이 없습니다."
     return Msg[i][fi], Msg[i][si], Msg[i][ti], first, second, third, boborder
-"""
+'''
 @application.route('/menu', methods=['POST'])
 def response_menu(): # 메뉴 대답 함수
     
-    """msg1, msg2, msg3, menu1, menu2, menu3, boborder = what_is_menu()
-    if menu1=="등록된 급식이 없습니다." and menu2=="등록된 급식이 없습니다." and menu3=="등록된 급식이 없습니다.":
+    msg1, msg2, msg3, menu1, menu2, menu3, boborder = what_is_menu()
+    """if menu1=="등록된 급식이 없습니다." and menu2=="등록된 급식이 없습니다." and menu3=="등록된 급식이 없습니다.":
         res={
             "version": "2.0",
             "template": {
